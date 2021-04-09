@@ -2,7 +2,7 @@
   "name": "superheroes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/Simkav/superheroes/issues"
   },
-  "homepage": "https://github.com/Simkav/superheroes#readme"
+  "homepage": "https://github.com/Simkav/superheroes#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http-errors": "^1.7.2",
+    "multer": "^1.4.2",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0"
+  }
 }
