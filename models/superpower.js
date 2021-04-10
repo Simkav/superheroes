@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class SuperPower extends Model {
     static associate (models) {
-      SuperPower.belongsToMany(models.Superhero, {
+      SuperPower.belongsToMany(models.SuperHero, {
         through: 'heroes_to_powers',
         foreignKey: 'superPowerId',
       });
