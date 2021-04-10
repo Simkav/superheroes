@@ -1,13 +1,5 @@
 const createError = require('http-errors');
 const { SuperHero } = require('../models');
-const pickBody = require('../utils/pickBody');
-
-const availableFields = [
-  'nickname',
-  'realName',
-  'originDescription',
-  'catchPhrase',
-];
 
 module.exports.getSuperHeroes = async (req, res, next) => {
   try {
@@ -53,9 +45,8 @@ module.exports.deleteHero = async (req, res, next) => {
 };
 module.exports.updateHero = async (req, res, next) => {
   try {
-    const { body, heroInstance } = req;
-    const pickedBody = pickBody(body, availableFields);
-    await heroInstance.update(pickedBody);
+    const { parsedBody, heroInstance } = req;
+    await heroInstance.update(parsedBody);
     res.status(200).send(heroInstance);
   } catch (err) {
     console.log(err);
