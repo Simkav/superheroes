@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const { SuperHero, SuperPower, Image } = require('../models');
 const pickBody = require('../utils/pickBody');
 const validatePage = require('../utils/validatePage');
-
+//TODO Work with errors
 const avalibleValues = [
   'nickname',
   'realName',
