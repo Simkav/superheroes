@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate (models) {
       SuperHero.belongsToMany(models.SuperPower, {
         through: 'heroes_to_powers',
-        foreignKey: 'superHeroId',
+        foreignKey: 'heroId',
       });
       SuperHero.hasMany(models.Image, {
-        foreignKey: 'superHeroId',
+        foreignKey: 'heroId',
       });
     }
   }
