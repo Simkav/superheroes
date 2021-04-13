@@ -16,7 +16,11 @@ module.exports.getHeroes = async (req, res, next) => {
       query: { page },
     } = req;
     const offset = await validatePage(page);
-    const heroes = await SuperHero.findAll({ limit: 5, offset });
+    const heroes = await SuperHero.findAll({
+      limit: 5,
+      offset,
+      include: [Image, SuperPower],
+    });
     res.status(200).send({ data: { heroes } });
   } catch (err) {
     console.log(err);
