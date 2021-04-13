@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
   } = req;
   const heroInstance = await SuperHero.findByPk(id);
   if (!heroInstance) {
-    return next(createError(404));
+    return next(createError(404, 'Hero not found'));
   }
   req.heroInstance = heroInstance;
   next();
