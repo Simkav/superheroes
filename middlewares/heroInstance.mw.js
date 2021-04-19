@@ -1,4 +1,4 @@
-const { SuperHero } = require('../models');
+const { SuperHero } = require('../db/models');
 const createError = require('http-errors');
 module.exports = async (req, res, next) => {
   const {

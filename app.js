@@ -5,6 +5,8 @@ const errorHandler = require('./middlewares/errorHandler.mw');
 const createPublicFolder = require('./utils/createPublicFolder');
 const { STATIC_IMAGES_PATH } = require('./config/index');
 
+require('dotenv').config();
+
 createPublicFolder();
 
 app.use(express.json());
