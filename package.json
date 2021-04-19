@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Simkav/superheroes#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-errors": "^1.7.2",
     "lodash": "^4.17.21",
