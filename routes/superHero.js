@@ -1,42 +1,25 @@
-const { Router } = require('express');
+const superHeroRouter = require('express')();
 const SuperHeroController = require('../controllers/SuperHero.controller');
 const heroInstance = require('../middlewares/heroInstance.mw');
-const upload = require('../middlewares/multer.mw');
+const imageUploader = require('../middlewares/multer.mw');
+const imageRouter = require('./image');
+const superPowerRouter = require('./superPower');
 
-const superHeroRouter = Router();
+superHeroRouter
+  .route('/')
+  .get(SuperHeroController.getHeroes)
+  .post(SuperHeroController.createHero);
 
-superHeroRouter.get('/', SuperHeroController.getHeroes);
-superHeroRouter.get('/:id', heroInstance, SuperHeroController.getHeroById);
-superHeroRouter.get(
-  '/:id/getImages',
-  heroInstance,
-  SuperHeroController.getImagesFromHero
-);
-superHeroRouter.get(
-  '/:id/getPowers',
-  heroInstance,
-  SuperHeroController.getSuperPowersFromHero
-);
-
-superHeroRouter.post('/', SuperHeroController.createHero);
-
-superHeroRouter.delete('/:id', heroInstance, SuperHeroController.deleteHero);
-superHeroRouter.delete(
-  '/:id/deleteImage/:imageId',
-  heroInstance,
-  SuperHeroController.removeImageFromHero
-);
-superHeroRouter.delete(
-  '/:id/deletePower/:powerId',
-  heroInstance,
-  SuperHeroController.removeSuperPowerFromHero
-);
-
-superHeroRouter.patch('/:id', heroInstance, SuperHeroController.updateHero);
+superHeroRouter
+  .route('/:id')
+  .all(heroInstance)
+  .get(SuperHeroController.getHeroById)
+  .delete(SuperHeroController.deleteHero)
+  .patch(SuperHeroController.updateHero);
 
 superHeroRouter.post(
   '/withImages',
-  upload.array('images', 10),
+  imageUploader,
   SuperHeroController.createHeroWithImages
 );
 superHeroRouter.post(
@@ -46,21 +29,53 @@ superHeroRouter.post(
 );
 superHeroRouter.post(
   '/fullHero',
-  upload.array('images', 10),
+  imageUploader,
   SuperHeroController.createFullHero
 );
 
-superHeroRouter.patch(
-  '/:id/addPowers',
-  heroInstance,
-  SuperHeroController.addSuperPowersToHero
-);
+superHeroRouter.use('/images', imageRouter);
+superHeroRouter.use('/powers', superPowerRouter);
 
-superHeroRouter.patch(
-  '/:id/addImages',
-  heroInstance,
-  upload.array('images', 10),
-  SuperHeroController.addImages
-);
+// superHeroRouter.get('/', SuperHeroController.getHeroes);
+// superHeroRouter.get('/:id', heroInstance, SuperHeroController.getHeroById);
+// superHeroRouter.post('/', SuperHeroController.createHero);
+
+// superHeroRouter.delete('/:id', heroInstance, SuperHeroController.deleteHero);
+// superHeroRouter.patch('/:id', heroInstance, SuperHeroController.updateHero);
+
+// superHeroRouter.get(
+//   '/:id/getImages',
+//   heroInstance,
+//   SuperHeroController.getImagesFromHero
+// );
+// superHeroRouter.get(
+//   '/:id/getPowers',
+//   heroInstance,
+//   SuperHeroController.getSuperPowersFromHero
+// );
+
+// superHeroRouter.delete(
+//   '/:id/deleteImage/:imageId',
+//   heroInstance,
+//   SuperHeroController.removeImageFromHero
+// );
+// superHeroRouter.delete(
+//   '/:id/deletePower/:powerId',
+//   heroInstance,
+//   SuperHeroController.removeSuperPowerFromHero
+// );
+
+// superHeroRouter.patch(
+//   '/:id/addPowers',
+//   heroInstance,
+//   SuperHeroController.addSuperPowersToHero
+// );
+
+// superHeroRouter.patch(
+//   '/:id/addImages',
+//   heroInstance,
+//   imageUploader,
+//   SuperHeroController.addImages
+// );
 
 module.exports = superHeroRouter;
